@@ -87,3 +87,26 @@
   background-color: rgb(0, 8, 255);
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.column { 
+  background-color: rgb(145, 145, 145);
+  height: 600px;
+  width: 300px;
+  min-width: 300px;
+  margin: 10px;
+  border: 1px solid white;
+}
+
+.card-new {
+  width: 275px;
+  max-width: 275px;
+  background-color: rgb(160, 96, 96);
+  margin: 5px;
+}
