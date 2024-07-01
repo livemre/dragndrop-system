@@ -13,7 +13,7 @@ export type ColumnType = {
   id: string;
   cards?: CardType[];
   visible?: boolean;
-  title?: string;
+  title: string;
 };
 
 export interface IProps {
@@ -27,6 +27,8 @@ export interface IProps {
   draggedItemIndex: number | null;
   setDraggedItemIndex: React.Dispatch<React.SetStateAction<number | null>>;
   getItemIndex: (id: string) => number;
+  overlayItem: ReactNode | null;
+  setOverlayItem: React.Dispatch<React.SetStateAction<ReactNode | null>>;
 }
 
 const MainContext = createContext<IProps | undefined>(undefined);
@@ -34,6 +36,7 @@ const MainContext = createContext<IProps | undefined>(undefined);
 const MainProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [columns, setColumns] = useState<ColumnType[]>([]);
   const [db, setDb] = useState<CardType[]>([]);
+  const [overlayItem, setOverlayItem] = useState<ReactNode | null>(null);
 
   //DND
   const [draggedItem, setDraggedItem] = useState<CardType | null>(null);
@@ -94,6 +97,8 @@ const MainProvider: FC<{ children: ReactNode }> = ({ children }) => {
         draggedItemIndex,
         setDraggedItemIndex,
         getItemIndex,
+        overlayItem,
+        setOverlayItem,
       }}
     >
       {children}

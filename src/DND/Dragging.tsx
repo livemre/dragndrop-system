@@ -22,7 +22,7 @@ const Dragging: FC<IProps> = ({ children, id, item, index }) => {
     throw new Error("No Context");
   }
 
-  const { setDraggedItem, setDraggedItemIndex } = context;
+  const { setDraggedItem, setDraggedItemIndex, setOverlayItem } = context;
 
   const onDragStart = (
     event: DragEvent<HTMLDivElement>,
@@ -47,6 +47,24 @@ const Dragging: FC<IProps> = ({ children, id, item, index }) => {
     
     setDb(newData);
     */
+
+    // Bir div olustur
+
+    // Bir div olustur
+    const overlayContent = (
+      <div
+        style={{
+          border: "2px dashed gray",
+          backgroundColor: "lightgray",
+          padding: "10px",
+          margin: "10px",
+        }}
+      >
+        {children}
+      </div>
+    );
+
+    setOverlayItem(overlayContent);
   };
 
   useEffect(() => {

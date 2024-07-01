@@ -101,49 +101,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <CreateColumn />
       <Board />
-      <div className="data-state">
-        <h2>Mevcut Durum:</h2>
-        {data.map((item) => (
-          <p key={item.id}>
-            {item.id}: {item.title}
-          </p>
-        ))}
-      </div>
-      {data.map((item, index) => (
-        <div
-          key={item.id}
-          className={`card-container ${
-            dragOverIndex === index ? "card-container-hover" : ""
-          }`}
-        >
-          {dragOverIndex === index && placeholderPosition === "top" && (
-            <div className="placeholder placeholder-top"></div>
-          )}
-          <div
-            className={`card ${!item.visible ? "card-hidden" : ""} ${
-              dragOverIndex === index
-                ? "card-moving-" +
-                  (placeholderPosition === "bottom" ? "down" : "up")
-                : ""
-            }`}
-            draggable
-            onDragStart={(e) => onDragStart(e, item)}
-            onDragOver={(e) => onDragOver(e, index)}
-            onDragLeave={onDragLeave}
-            onDrop={(e) => onDrop(e, index)}
-            onDragEnd={onDragEnd}
-          >
-            <p className="text">{item.id}</p>
-            <p className="text">{item.title}</p>
-          </div>
-          <div className="placeholder-black"></div>
-          {dragOverIndex === index && placeholderPosition === "bottom" && (
-            <div className="placeholder placeholder-bottom"></div>
-          )}
-        </div>
-      ))}
     </div>
   );
 };
