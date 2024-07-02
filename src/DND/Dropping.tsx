@@ -27,7 +27,14 @@ const Dropping: FC<IProps> = ({
     throw new Error("No context");
   }
 
-  const { db, setDb, draggedItem, draggedItemIndex, setDraggedItem } = context;
+  const {
+    db,
+    setDb,
+    draggedItem,
+    draggedItemIndex,
+    setDraggedItem,
+    updateIndexes,
+  } = context;
 
   const ondrop = (event: DragEvent) => {
     event.preventDefault();
@@ -67,11 +74,29 @@ const Dropping: FC<IProps> = ({
       setDb(newData);
     }
     console.log(db);
-
+    if (draggedItem !== null) {
+      if (draggedItem.columnId === columnId) {
+        console.log("Kendi kolonunda");
+      } else {
+        console.log("Dragged Item null degil" + draggedItem.columnId);
+        updateIndexes(draggedItem?.columnId);
+      }
+    }
     setDraggedItem(null);
   };
 
-  return <div onDrop={(e) => ondrop(e)}>{children}</div>;
+  const ondragleave = () => {
+    console.log("Drag leaved!");
+    if (draggedItem !== null) {
+      updateIndexes(draggedItem?.columnId);
+    }
+  };
+
+  return (
+    <div onDrop={(e) => ondrop(e)} onDragLeave={ondragleave}>
+      {children}
+    </div>
+  );
 };
 
 export default Dropping;

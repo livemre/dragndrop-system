@@ -16,6 +16,11 @@ export type ColumnType = {
   title: string;
 };
 
+export type Dndtypes = {
+  oldColumn: string;
+  newColumn: string;
+};
+
 export interface IProps {
   columns: ColumnType[];
   createColumn: (title: string) => void;
@@ -29,6 +34,7 @@ export interface IProps {
   getItemIndex: (id: string) => number;
   overlayItem: ReactNode | null;
   setOverlayItem: React.Dispatch<React.SetStateAction<ReactNode | null>>;
+  updateIndexes: (columnId: string) => void;
 }
 
 const MainContext = createContext<IProps | undefined>(undefined);
@@ -54,6 +60,18 @@ const MainProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return db.findIndex((item) => {
       return item.id == id;
     });
+  };
+
+  const updateIndexes = (columnId: string) => {
+    let index = 0;
+    setDb((prevDb) =>
+      prevDb.map((item) => {
+        if (item.columnId === columnId) {
+          return { ...item, inColumnIndex: index++ };
+        }
+        return item;
+      })
+    );
   };
 
   const createCard = (columnId: string, title: string) => {
@@ -99,6 +117,7 @@ const MainProvider: FC<{ children: ReactNode }> = ({ children }) => {
         getItemIndex,
         overlayItem,
         setOverlayItem,
+        updateIndexes,
       }}
     >
       {children}
